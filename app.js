@@ -77,7 +77,6 @@ for (var y = 0; y < size0; y++) {
             }
         }
     }
-}
 
  for (var i in grassArr) {
         grassArr[i].mul();
