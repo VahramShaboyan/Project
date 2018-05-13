@@ -1,3 +1,4 @@
+var Livingcreatures = require("./class.livingcreatures");
 class Hunter extends LivingCreatures{
     constructor(x, y, index) {
         super(x, y, index);
