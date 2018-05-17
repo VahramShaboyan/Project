@@ -3,13 +3,13 @@ var app = express();
 
 app.use(express.static("public"));
 
-app.get("/", function(req, res){
-   res.redirect("public/index.html");
+app.get("/", function (req, res) {
+    res.redirect("public/index.html");
 });
 
-app.listen(3000, function(){
-   console.log("Example is running on port 3000");
-}); 
+app.listen(3000, function () {
+    console.log("Example is running on port 3000");
+});
 var size0 = 20;
 var size1 = 20;
 var side = 30;
@@ -19,11 +19,13 @@ var grasseaterArr = [];
 var predatorArr = [];
 var hunterArr = [];
 
-function GenerateRandomRange(Start, End) {
-    return Math.floor((Math.random() * (End - Start + 1)) + Start);
-}
 
-for (var y = 0; y < size0; y++) {
+function setinterval() {
+    function GenerateRandomRange(Start, End) {
+        return Math.floor((Math.random() * (End - Start + 1)) + Start);
+    }
+
+    for (var y = 0; y < size0; y++) {
         matrix[y] = [];
         for (var x = 0; x < size1; x++) {
 
@@ -78,7 +80,7 @@ for (var y = 0; y < size0; y++) {
         }
     }
 
- for (var i in grassArr) {
+    for (var i in grassArr) {
         grassArr[i].mul();
     }
     for (var i in grasseaterArr) {
@@ -90,3 +92,6 @@ for (var y = 0; y < size0; y++) {
     for (var i in hunterArr) {
         hunterArr[i].eat();
     }
+}
+
+var allfunction = setInterval (function () { setInterval () }, 3000)
