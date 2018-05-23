@@ -1,4 +1,4 @@
-class Grass {
+class Water {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
@@ -6,16 +6,15 @@ class Grass {
         this.multiply = 0;
         this.directions = [
             [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
+            [this.x,     this.y - 1],
             [this.x + 1, this.y - 1],
             [this.x - 1, this.y],
             [this.x + 1, this.y],
             [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
+            [this.x,     this.y + 1],
             [this.x + 1, this.y + 1]
         ];
     }
-
     chooseCell(character) {
         var found = [];
         for (var i in this.directions) {
@@ -31,27 +30,18 @@ class Grass {
     }
     mul() {
         this.multiply++;
-        var emptyCells = this.chooseCell(0);
+        var emptyCells = this.chooseCell(5);
         var newCell = random(emptyCells);
-        var waterCell = this.chooseCell(5);
-        if (waterCell && this.multiply >= 2) {
+
+
+        if (newCell && this.multiply >= 6) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
 
-            var newGrass = new Grass(newX, newY, this.index);
-            grassArr.push(newGrass);
-            this.multiply = 0;
-        }
-        else if (newCell && this.multiply >= 3) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-            matrix[newY][newX] = this.index;
-
-            var newGrass = new Grass(newX, newY, this.index);
-            grassArr.push(newGrass);
+            var newWater = new Water(newX, newY, this.index);
+            waterArr.push(newWater);
             this.multiply = 0;
         }
     }
-
 }

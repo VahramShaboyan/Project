@@ -1,32 +1,18 @@
-/*var matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 0]
-]; */
+function main() {
 
-
-
+    socket = io.connect('http://localhost:3000');
+    socket.on('matrix', nkarel);
+    
+}
 
 function setup() {
-    frameRate(2);
-    fill(0, 0, 255);
-    rect(x * side, y * side, side, side)
-    
-
-
 
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
 
     
-function draw() {
-
-
+function nkarel(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
@@ -52,9 +38,8 @@ function draw() {
             }
         }
     }
-
-   
-
-
 }
-}
+
+
+
+window.onload = main;

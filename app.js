@@ -1,5 +1,7 @@
-var express = require("express");
+var express = require('express');
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 app.use(express.static("public"));
 
@@ -10,6 +12,15 @@ app.get("/", function (req, res) {
 app.listen(3000, function () {
     console.log("Example is running on port 3000");
 });
+
+io.on('connection', function (socket) {
+    setInterval(function () {
+        io.sockets.emit('matrix', matrix);
+    }, 1000);
+
+});
+
+
 var size0 = 20;
 var size1 = 20;
 var side = 30;
@@ -18,6 +29,7 @@ var grassArr = [];
 var grasseaterArr = [];
 var predatorArr = [];
 var hunterArr = [];
+var waterArr = [];
 
 
 function setinterval() {
@@ -29,7 +41,7 @@ function setinterval() {
         matrix[y] = [];
         for (var x = 0; x < size1; x++) {
 
-            var t = GenerateRandomRange(0, 8);
+            var t = GenerateRandomRange(0, 10);
             if (t == 1 || t == 6 || t == 7) {
                 matrix[y][x] = 1;
             }
@@ -41,6 +53,9 @@ function setinterval() {
             }
             else if (t == 0 || t == 5) {
                 matrix[y][x] = 0;
+            }
+            else if (t == 9 || t == 10) {
+                matrix[y][x] = 5;
             }
         }
     }
@@ -77,6 +92,11 @@ function setinterval() {
                 hunterArr.push(hunt);
 
             }
+            else if (matrix[y][x] == 5) {
+                var water = new Water(x, y, 5);
+                waterArr.push(water);
+
+            }
         }
     }
 
@@ -92,6 +112,9 @@ function setinterval() {
     for (var i in hunterArr) {
         hunterArr[i].eat();
     }
+    for (var i in waterArr) {
+        waterArr[i].mul();
+    }
 }
 
-var allfunction = setInterval (function () { setInterval () }, 3000)
+var allfunction = setInterval(function () { setInterval() }, 3000)
