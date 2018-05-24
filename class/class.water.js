@@ -1,4 +1,4 @@
-class Water {
+module.exports = class Water {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
@@ -31,7 +31,8 @@ class Water {
     mul() {
         this.multiply++;
         var emptyCells = this.chooseCell(5);
-        var newCell = random(emptyCells);
+        var index = Math.floor(Math.random()*emptyCells.length);
+        var newCell = emptyCells[index];
 
 
         if (newCell && this.multiply >= 6) {

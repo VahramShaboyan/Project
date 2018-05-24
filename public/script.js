@@ -1,17 +1,21 @@
+var size0 = 20;
+var size1 = 20;
+var side = 20;
+
 function main() {
 
     socket = io.connect('http://localhost:3000');
     socket.on('matrix', nkarel);
-    
+
 }
 
 function setup() {
 
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(size0 * side, size1 * side);
     background('#acacac');
+}
 
 
-    
 function nkarel(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
@@ -34,6 +38,10 @@ function nkarel(matrix) {
             }
             else if (matrix[y][x] == 0) {
                 fill("#acacac");
+                rect(x * side, y * side, side, side);
+            }
+            else if (matrix[y][x] == 5) {
+                fill("blue");
                 rect(x * side, y * side, side, side);
             }
         }

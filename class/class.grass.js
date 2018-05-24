@@ -1,4 +1,4 @@
-class Grass {
+module.exports = class Grass {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
@@ -32,18 +32,23 @@ class Grass {
     mul() {
         this.multiply++;
         var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
-        var waterCell = this.chooseCell(5);
-        if (waterCell && this.multiply >= 2) {
+        var index = Math.floor(Math.random()*emptyCells.length);
+        var newCell = emptyCells[index];
+
+        var waterCellsss = this.chooseCell(5);
+        var i = Math.floor(Math.random()*emptyCells.length);
+        var waterCell = waterCellsss[i];
+
+        if (waterCell && newCell && this.multiply >= 2) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index;
+            matrix[newY][newX] = this.index; 
 
             var newGrass = new Grass(newX, newY, this.index);
             grassArr.push(newGrass);
             this.multiply = 0;
         }
-        else if (newCell && this.multiply >= 3) {
+        else if (newCell && this.multiply >= 4) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
@@ -55,3 +60,4 @@ class Grass {
     }
 
 }
+   

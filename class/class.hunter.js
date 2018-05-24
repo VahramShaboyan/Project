@@ -1,5 +1,5 @@
-var Livingcreatures = require("./class.livingcreatures");
-class Hunter extends LivingCreatures{
+var LivingCreatures = require("./class.livingcreatures");
+module.exports = class Hunter extends LivingCreatures {
     constructor(x, y, index) {
         super(x, y, index);
         this.energy = 30;
@@ -8,7 +8,7 @@ class Hunter extends LivingCreatures{
     getNewLargerCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 2],
-            [this.x,     this.y - 2],
+            [this.x, this.y - 2],
             [this.x + 1, this.y - 2],
             [this.x + 2, this.y - 2],
             [this.x - 2, this.y - 1],
@@ -28,7 +28,7 @@ class Hunter extends LivingCreatures{
             [this.x + 2, this.y + 1],
             [this.x - 2, this.y + 2],
             [this.x - 1, this.y + 2],
-            [this.x,     this.y + 2],
+            [this.x, this.y + 2],
             [this.x + 1, this.y + 2],
             [this.x + 2, this.y + 2],
         ];
@@ -50,12 +50,15 @@ class Hunter extends LivingCreatures{
     }
 
     move() {
+
         var predatordirectionCells = this.chooseCell2(3);
-        var newCelldirection = random(predatordirectionCells);
+        var index = Math.floor(Math.random() * predatordirectionCells.length);
+        var newCelldirection = predatordirectionCells[index];
+
 
         var emptyCells = this.chooseCell(0);
-        var filled = random(emptyCells);
-
+        var index = Math.floor(Math.random() * emptyCells.length);
+        var filled = emptyCells[index];
         if (newCelldirection) {
             var newx = newCelldirection[0];
             var newy = newCelldirection[1];
@@ -82,8 +85,11 @@ class Hunter extends LivingCreatures{
     }
 
     eat() {
+
         var emptyCells = this.chooseCell(3);
-        var newCell = random(emptyCells);
+        var index = Math.floor(Math.random()*emptyCells.length);
+        var newCell = emptyCells[index];
+
 
         if (newCell) {
             this.energy++;
@@ -120,7 +126,8 @@ class Hunter extends LivingCreatures{
 
     mul() {
         var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        var index = Math.floor(Math.random()*emptyCells.length);
+        var newCell = emptyCells[index];
 
 
         if (newCell) {
