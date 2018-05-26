@@ -32,6 +32,8 @@ predatorArr = [];
 hunterArr = [];
 waterArr = [];
 
+
+
 function GenerateRandomRange(Start, End) {
     return Math.floor((Math.random() * (End - Start + 1)) + Start);
 }
@@ -89,17 +91,17 @@ for (y = 0; y < matrix.length; y++) {
         else if (matrix[y][x] == 4) {
             var hunt = new Hunter(x, y, 4);
             hunterArr.push(hunt);
-        }
+        }/*
         else if (matrix[y][x] == 5) {
             var watercube = new Water(x, y, 5)
             waterArr.push(watercube);
-        }
+        }*/
 
 
     }
 }
-weather = "spring";
 exanak = 0;
+weather = "spring";
 function callcode() {
     exanak++;
 
@@ -110,12 +112,17 @@ function callcode() {
         weather = "summer";
     }
     else if (exanak % 80 == 40) {
-
+        weather = "autumn";
+    }
+    else if (exanak % 80 == 60) {
+        weather = "winter";
     }
 
-
     for (var i in grassArr) {
-        grassArr[i].mul();
+        if (weather != "winter") {
+            grassArr[i].mul();
+            console.log("it is not winter now");
+        }
     }
     for (var i in grasseaterArr) {
         grasseaterArr[i].eat();
@@ -125,18 +132,17 @@ function callcode() {
     }
     for (var i in hunterArr) {
         hunterArr[i].eat();
-    }
+    }/*
     for (var i in waterArr) {
         waterArr[i].mul();
-    }
+    }*/
     io.sockets.emit('matrix', matrix);
-    console.log(matrix);
 }
 
 
 
 io.on('connection', function (socket) {
-    setInterval(callcode, 3000);
+    setInterval(callcode, 500);
 });
 
 

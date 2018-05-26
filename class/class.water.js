@@ -1,4 +1,4 @@
-module.exports = class Water {
+/*module.exports = class Water {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
@@ -35,7 +35,7 @@ module.exports = class Water {
         var newCell = emptyCells[index];
 
 
-        if (newCell && this.multiply >= 6) {
+        if (newCell && this.multiply >= 5) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
@@ -43,6 +43,8 @@ module.exports = class Water {
             var newWater = new Water(newX, newY, this.index);
             waterArr.push(newWater);
             this.multiply = 0;
+            console.log("water is created");
+            
         }
     }
-}
+}*/

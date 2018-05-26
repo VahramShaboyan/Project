@@ -66,9 +66,18 @@ module.exports = class Predator extends LivingCreatures{
         var emptyCells = this.chooseCell(0);
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
+        /*
+        if (newCell && weather != "spring" && weather != "summer" && weather != "autumn" && grasseaterArr.length >= 10) {
+            var newX = newCell[0];
+            var newY = newCell[1];
+            matrix[newY][newX] = this.index;
 
-
-        if (newCell && grasseaterArr.length >= 10) {
+            var newpredator = new Predator(newX, newY, this.index);
+            predatorArr.push(newpredator);
+            this.energy = 6;
+        }
+        */
+        if (newCell && weather == "winter" && grasseaterArr.length >= 10) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;

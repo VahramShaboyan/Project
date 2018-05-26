@@ -34,7 +34,7 @@ module.exports = class Grass {
         var emptyCells = this.chooseCell(0);
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
-
+/*
         var waterCellsss = this.chooseCell(5);
         var i = Math.floor(Math.random()*emptyCells.length);
         var waterCell = waterCellsss[i];
@@ -48,7 +48,7 @@ module.exports = class Grass {
             grassArr.push(newGrass);
             this.multiply = 0;
         }
-        else if (newCell && this.multiply >= 4) {
+        else*/ if (newCell && this.multiply >= 4) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = this.index;
