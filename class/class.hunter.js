@@ -41,7 +41,7 @@ module.exports = class Hunter extends LivingCreatures {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
+                if (matrix[y][x].Value == character) {
                     found.push(this.directions[i]);
                 }
             }
@@ -50,11 +50,9 @@ module.exports = class Hunter extends LivingCreatures {
     }
 
     move() {
-
         var predatordirectionCells = this.chooseCell2(3);
         var index = Math.floor(Math.random() * predatordirectionCells.length);
         var newCelldirection = predatordirectionCells[index];
-
 
         var emptyCells = this.chooseCell(0);
         var index = Math.floor(Math.random() * emptyCells.length);
@@ -65,22 +63,21 @@ module.exports = class Hunter extends LivingCreatures {
             var newnewx = Math.floor((newx + this.x) / 2);
             var newnewy = Math.floor((newy + this.y) / 2);
 
-            matrix[this.y][this.x] = 0;
-            matrix[newnewy][newnewx] = 4;
+            matrix[this.y][this.x].Value = 0;
+            matrix[newnewy][newnewx].Value = 4;
+            matrix[newnewy][newnewx].Age++;
             this.x = newnewx;
             this.y = newnewy;
             console.log("worked");
-
         }
         else if (filled) {
             var newX = filled[0];
             var newY = filled[1];
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 4;
+            matrix[this.y][this.x].Value = 0;
+            matrix[newY][newX].Value = 4;
+            matrix[newY][newX].Age++;
             this.x = newX;
             this.y = newY;
-
-
         }
     }
 
@@ -90,13 +87,12 @@ module.exports = class Hunter extends LivingCreatures {
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
 
-
         if (newCell) {
             this.energy++;
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 4;
+            matrix[this.y][this.x].Value = 0;
+            matrix[newY][newX].Value = 4;
             this.x = newX;
             this.y = newY;
             for (var i in predatorArr) {
@@ -106,13 +102,9 @@ module.exports = class Hunter extends LivingCreatures {
                 }
             }
 
-
-
-            if (this.energy >= 33) {
+            if (this.energy >= 66) {
                 this.mul();
             }
-
-
         }
 
         else {
@@ -129,23 +121,20 @@ module.exports = class Hunter extends LivingCreatures {
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
 
-
-        if (newCell) {
+        if (newCell != undefined) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index;
+            matrix[newY][newX].Value = this.index;
 
             var newhunter = new Hunter(newX, newY, this.index);
             hunterArr.push(newhunter);
             this.energy = 30;
         }
-
     }
 
     die() {
-        matrix[this.y][this.x] = 0;
-
-
+        matrix[this.y][this.x].Value = 0;
+        console.log(matrix[this.y][this.x]);
         for (var i in hunterArr) {
             if (this.x == hunterArr[i].x && this.y == hunterArr[i].y) {
                 hunterArr.splice(i, 1);
@@ -153,14 +142,4 @@ module.exports = class Hunter extends LivingCreatures {
             }
         }
     }
-
-
-
 }
-
-
-
-
-
-
-

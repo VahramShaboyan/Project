@@ -22,7 +22,7 @@ module.exports = class Grass {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
+                if (matrix[y][x].Value == character) {
                     found.push(this.directions[i]);
                 }
             }
@@ -34,30 +34,30 @@ module.exports = class Grass {
         var emptyCells = this.chooseCell(0);
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
-/*
+
         var waterCellsss = this.chooseCell(5);
         var i = Math.floor(Math.random()*emptyCells.length);
         var waterCell = waterCellsss[i];
 
-        if (waterCell && newCell && this.multiply >= 2) {
+        if (waterCell != undefined && newCell != undefined && this.multiply >= 2) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index; 
+            matrix[newY][newX].Value = this.index; 
 
             var newGrass = new Grass(newX, newY, this.index);
             grassArr.push(newGrass);
             this.multiply = 0;
         }
-        else*/ if (newCell && this.multiply >= 4) {
+        else if (newCell && this.multiply >= 4) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index;
+
+            matrix[newY][newX].Value = this.index;
 
             var newGrass = new Grass(newX, newY, this.index);
             grassArr.push(newGrass);
             this.multiply = 0;
         }
     }
-
 }
    

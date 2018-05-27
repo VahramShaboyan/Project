@@ -11,20 +11,17 @@ module.exports = class GrassEater extends LivingCreatures{
         var emptyCells = this.chooseCell(0);
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
-
-        if (newCell) {
+        
+        if (newCell != undefined) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 2;
+            matrix[this.y][this.x].Value = 0;
+            matrix[newY][newX].Value = 2;
+            matrix[newY][newX].Age++;
             this.x = newX;
             this.y = newY; 
-
-
-
+            
         }
-
-
     }
 
     eat() {
@@ -36,8 +33,8 @@ module.exports = class GrassEater extends LivingCreatures{
             this.energy++;
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 2;
+            matrix[this.y][this.x].Value = 0;
+            matrix[newY][newX].Value = 2;
             this.x = newX;
             this.y = newY;
             for (var i in grassArr) {
@@ -50,8 +47,6 @@ module.exports = class GrassEater extends LivingCreatures{
             if (this.energy >= 10) {
                 this.mul();
             }
-
-
         }
 
         else {
@@ -65,26 +60,35 @@ module.exports = class GrassEater extends LivingCreatures{
 
     mul() {
         var emptyCells = this.chooseCell(0);
+        var ownCells = this.chooseCell(2);
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
+        var OwnCell = ownCells[index];
 
 
-        if (newCell) {
+        if (newCell != undefined && OwnCell != undefined) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index;
 
-            var newgrasseater = new GrassEater(newX, newY, this.index);
-            grasseaterArr.push(newgrasseater);
-            this.energy = 6;
+            var OwnX = OwnCell[0];
+            var OwnY = OwnCell[1];
+
+            var OwnElem = matrix[OwnY][OwnX];
+            var SelfElem = matrix[this.y][this.x];
+
+            if(OwnElem.IsBoy != SelfElem.IsBoy){
+                matrix[newY][newX].Value = this.index;
+                var newgrasseater = new GrassEater(newX, newY, this.index);
+                grasseaterArr.push(newgrasseater);
+                this.energy = 6;
+            }
         }
-
     }
 
     die() {
-        matrix[this.y][this.x] = 0;
 
-
+        matrix[this.y][this.x].Value = 0;
+        console.log(matrix[this.y][this.x]);
         for (var i in grasseaterArr) {
             if (this.x == grasseaterArr[i].x && this.y == grasseaterArr[i].y) {
                 grasseaterArr.splice(i, 1);
@@ -92,6 +96,4 @@ module.exports = class GrassEater extends LivingCreatures{
             }
         }
     }
-
-
 }

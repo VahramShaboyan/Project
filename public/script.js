@@ -5,49 +5,54 @@ var side = 20;
 function main() {
 
     socket = io.connect('http://localhost:3000');
-    socket.on('matrix', nkarel);
+    socket.on('PushedObj', nkarel);
 
 }
 
 function setup() {
-
-    createCanvas(size0 * side, size1 * side);
+    createCanvas(size0 * side, size1 * side  + 20);
     background('#acacac');
 }
 
+function nkarel(PushedObj) {
+    var matrix = PushedObj.Matrix;
+    var weather = PushedObj.Weather;
 
-function nkarel(matrix) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
+            fill("yellow");
+            text(weather, 50, 415);
 
-            if (matrix[y][x] == 1) {
-                fill("green");
+            if (matrix[y][x].Value == 1) {
+                if(weather == 'winter'){
+                    fill("#99DCA0");
+                }
+                else{
+                    fill("green");
+                }
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 2) {
+            else if (matrix[y][x].Value == 2) {
                 fill("yellow");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 3) {
+            else if (matrix[y][x].Value == 3) {
                 fill("red");
                 rect(x * side, y * side, side, side)
             }
-            else if (matrix[y][x] == 4) {
+            else if (matrix[y][x].Value == 4) {
                 fill("purple");
                 rect(x * side, y * side, side, side)
             }
-            else if (matrix[y][x] == 0) {
+            else if (matrix[y][x].Value == 0) {
                 fill("#acacac");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 5) {
+            else if (matrix[y][x].Value == 5) {
                 fill("blue");
                 rect(x * side, y * side, side, side);
             }
         }
     }
 }
-
-
-
 window.onload = main;

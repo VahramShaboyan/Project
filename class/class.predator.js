@@ -11,16 +11,16 @@ module.exports = class Predator extends LivingCreatures{
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
 
-        if (newCell) {
+        if (newCell != undefined) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 3;
+
+            matrix[this.y][this.x].Value = this.index;
+            matrix[newY][newX].Value = 3;
             this.x = newX;
             this.y = newY;
 
-
-
+            matrix[this.y][this.x].Age++;
         }
     }
 
@@ -29,12 +29,12 @@ module.exports = class Predator extends LivingCreatures{
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
 
-        if (newCell) {
+        if (newCell != undefined) {
             this.energy++;
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = 3;
+            matrix[this.y][this.x].Value = 0;
+            matrix[newY][newX].Value = 3;
             this.x = newX;
             this.y = newY;
 
@@ -44,13 +44,9 @@ module.exports = class Predator extends LivingCreatures{
                     break;
                 }
             }
-
-
-            if (this.energy >= 20) {
+            if (this.energy >= 30) {
                 this.mul();
             }
-
-
         }
 
         else {
@@ -66,33 +62,31 @@ module.exports = class Predator extends LivingCreatures{
         var emptyCells = this.chooseCell(0);
         var index = Math.floor(Math.random()*emptyCells.length);
         var newCell = emptyCells[index];
-        /*
-        if (newCell && weather != "spring" && weather != "summer" && weather != "autumn" && grasseaterArr.length >= 10) {
+
+        if ((weather == "spring" || weather == "summer" || weather == "autumn") && newCell && grasseaterArr.length >= 10) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index;
+            matrix[newY][newX].Value = this.index;
 
             var newpredator = new Predator(newX, newY, this.index);
             predatorArr.push(newpredator);
             this.energy = 6;
         }
-        */
-        if (newCell && weather == "winter" && grasseaterArr.length >= 10) {
+        
+        if (newCell && weather == "winter" && grasseaterArr.length >= 20) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = this.index;
+            matrix[newY][newX].Value = this.index;
 
             var newpredator = new Predator(newX, newY, this.index);
             predatorArr.push(newpredator);
             this.energy = 6;
         }
-
     }
 
     die() {
-        matrix[this.y][this.x] = 0;
-
-
+        matrix[this.y][this.x].Value = 0;
+        console.log(matrix[this.y][this.x]);
         for (var i in predatorArr) {
             if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
                 predatorArr.splice(i, 1);
@@ -100,7 +94,4 @@ module.exports = class Predator extends LivingCreatures{
             }
         }
     }
-
-
-
 }
