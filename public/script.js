@@ -10,24 +10,38 @@ function main() {
 }
 
 function setup() {
-    createCanvas(size0 * side, size1 * side  + 20);
-    background('#acacac');
+    createCanvas(size0 * side, size1 * side + 20);
 }
-
+col = '#acacac';
 function nkarel(PushedObj) {
     var matrix = PushedObj.Matrix;
     var weather = PushedObj.Weather;
 
+    if (weather == "spring") {
+        col = '#E9FFC6';
+    }
+    else if (weather == "summer") {
+        col = '#FFD2C6';
+    }
+    else if (weather == "autumn") {
+        col = '#FFC78D';
+    }
+    else if (weather == "winter") {
+        col = '#C6E7FF';
+    }
+    background(col);
+    fill("black");
+    text(weather, 50, 415);
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
-            fill("yellow");
-            text(weather, 50, 415);
+
 
             if (matrix[y][x].Value == 1) {
-                if(weather == 'winter'){
+                if (weather == 'winter') {
                     fill("#99DCA0");
                 }
-                else{
+                else {
                     fill("green");
                 }
                 rect(x * side, y * side, side, side);
@@ -45,7 +59,7 @@ function nkarel(PushedObj) {
                 rect(x * side, y * side, side, side)
             }
             else if (matrix[y][x].Value == 0) {
-                fill("#acacac");
+                fill(col);
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x].Value == 5) {

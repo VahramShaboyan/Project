@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
@@ -81,7 +82,7 @@ matrix[y][x] = {
     Age: 0,
     Value: 4
 };
-
+obj = {'arr': []};
 /*matrix = [
     [2, 0, 1, 2, 0],
     [1, 0, 0, 0, 0],
@@ -121,17 +122,22 @@ weather = "spring";
 
 function callcode() {
     exanak++;
+    var myJSON = JSON.stringify(obj);
 
-    if (exanak % 80 == 0) {
+    if(exanak%10 == 0) {
+        fs.writeFile('info.json', myJSON);
+    }
+
+    if (exanak % 40 == 0) {
         weather = "spring";
     }
-    else if (exanak % 80 == 20) {
+    else if (exanak % 40 == 10) {
         weather = "summer";
     }
-    else if (exanak % 80 == 40) {
+    else if (exanak % 40 == 20) {
         weather = "autumn";
     }
-    else if (exanak % 80 == 60) {
+    else if (exanak % 40 == 30) {
         weather = "winter";
     }
 
@@ -161,9 +167,9 @@ function callcode() {
 }
 
 
-
+setInterval(callcode, 500);
 io.on('connection', function (socket) {
-    setInterval(callcode, 500);
+   
 });
 
 

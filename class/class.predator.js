@@ -87,6 +87,7 @@ module.exports = class Predator extends LivingCreatures{
     die() {
         matrix[this.y][this.x].Value = 0;
         console.log(matrix[this.y][this.x]);
+        obj.arr.push({'who': "Predator",'gender':matrix[this.y][this.x].Value, 'age': matrix[this.y][this.x].Age});
         for (var i in predatorArr) {
             if (this.x == predatorArr[i].x && this.y == predatorArr[i].y) {
                 predatorArr.splice(i, 1);

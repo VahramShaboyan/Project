@@ -135,6 +135,7 @@ module.exports = class Hunter extends LivingCreatures {
     die() {
         matrix[this.y][this.x].Value = 0;
         console.log(matrix[this.y][this.x]);
+        obj.arr.push({'who': "Hunter",'gender':matrix[this.y][this.x].Value, 'age': matrix[this.y][this.x].Age});
         for (var i in hunterArr) {
             if (this.x == hunterArr[i].x && this.y == hunterArr[i].y) {
                 hunterArr.splice(i, 1);

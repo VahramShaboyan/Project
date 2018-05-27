@@ -89,6 +89,8 @@ module.exports = class GrassEater extends LivingCreatures{
 
         matrix[this.y][this.x].Value = 0;
         console.log(matrix[this.y][this.x]);
+
+        obj.arr.push({'who': "grassEater",'gender':matrix[this.y][this.x].Value, 'age': matrix[this.y][this.x].Age});
         for (var i in grasseaterArr) {
             if (this.x == grasseaterArr[i].x && this.y == grasseaterArr[i].y) {
                 grasseaterArr.splice(i, 1);
